@@ -65,5 +65,17 @@ public class MainApp extends Application {
         }
     }
 
+    public static void showMainGameView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("MainGame.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Main Game");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

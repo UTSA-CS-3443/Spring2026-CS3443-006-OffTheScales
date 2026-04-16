@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.offthescales.controller.GameOverController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Label text="Game Over">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="ScoreLabel" text="Label" />
+            <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="NameTextField" promptText="Enter Name" />
+                  <Button fx:id="SaveHighScoreButton" mnemonicParsing="false" onMouseClicked="#SaveHighScoreClicked" text="Save High Score" />
+               </children>
+            </HBox>
+            <Button fx:id="TitleScreenButton" mnemonicParsing="false" onMouseClicked="#TitleScreenClicked" text="Title Screen" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
