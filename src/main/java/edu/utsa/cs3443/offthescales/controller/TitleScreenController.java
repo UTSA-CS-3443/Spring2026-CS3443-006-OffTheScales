@@ -1,4 +1,4 @@
-package edu.utsa.cs3443.offthescales;
+package edu.utsa.cs3443.offthescales.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
