@@ -28,6 +28,43 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+    public static void showSongSelectView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("SongSelectScreen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Song Select");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showLeaderboardView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("LeaderboardScreen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Leaderboard");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showGameOverView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("GameOverScreen.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Game Over");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
