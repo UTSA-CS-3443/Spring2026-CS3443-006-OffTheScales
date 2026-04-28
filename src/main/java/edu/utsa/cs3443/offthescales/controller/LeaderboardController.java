@@ -6,15 +6,12 @@ import edu.utsa.cs3443.offthescales.model.PlayerDataManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class LeaderboardController {
 
@@ -32,6 +29,8 @@ public class LeaderboardController {
 
     private ObservableList<Player> playerList;
 
+    private PlayerDataManager manager;
+
     @FXML
     void TitleScreenClicked(MouseEvent event) {
         MainApp.showTitleScreenView();
@@ -39,7 +38,7 @@ public class LeaderboardController {
 
     @FXML
     public void initialize() {
-        PlayerDataManager manager = new PlayerDataManager();
+        manager = new PlayerDataManager();
 
         List<Player> players = manager.loadPlayersFromFile("data/players.csv");
 
@@ -55,5 +54,26 @@ public class LeaderboardController {
     private void setUpColumns() {
         NameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         ScoreTableColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+    }
+
+    @FXML
+    void Song1Clicked(MouseEvent event) {
+        playerList = FXCollections.observableList(manager.getListFromSong("song1"));
+        HighScoreTable.setItems(playerList);
+        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    @FXML
+    void Song2Clicked(MouseEvent event) {
+        playerList = FXCollections.observableList(manager.getListFromSong("song2"));
+        HighScoreTable.setItems(playerList);
+        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    @FXML
+    void Song3Clicked(MouseEvent event) {
+        playerList = FXCollections.observableList(manager.getListFromSong("song3"));
+        HighScoreTable.setItems(playerList);
+        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 }

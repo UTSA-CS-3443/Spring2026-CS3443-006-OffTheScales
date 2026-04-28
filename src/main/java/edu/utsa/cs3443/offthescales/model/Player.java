@@ -7,10 +7,12 @@ public class Player {
 
     private final SimpleStringProperty name = new SimpleStringProperty();
     private final SimpleIntegerProperty score = new SimpleIntegerProperty();
+    private final SimpleStringProperty songPlayed = new SimpleStringProperty();
 
-    public Player(String name, int score) {
+    public Player(String name, int score, String songPlayed) {
         this.name.set(name);
         this.score.set(score);
+        this.songPlayed.set(songPlayed);
     }
 
     public String getName() { return name.get(); }
@@ -20,5 +22,9 @@ public class Player {
     public int getScore() { return score.get(); }
     public void setScore(int score) { this.score.set(score); }
     public SimpleIntegerProperty scoreProperty() { return score; }
+
+    public String getSongPlayed() { return songPlayed.get(); }
+    public void setSongPlayed(String songPlayed) { this.songPlayed.set(songPlayed); }
+    public SimpleStringProperty songPlayedProperty() { return songPlayed; }
 
 }

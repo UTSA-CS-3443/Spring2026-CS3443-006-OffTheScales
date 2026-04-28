@@ -20,11 +20,13 @@ public class PlayerDataManager {
                 String[] data = line.split(",");
                 String name;
                 int score;
+                String songPlayed;
 
                 name = data[0].trim();
                 score = Integer.parseInt(data[1].trim());
+                songPlayed = data[2].trim();
 
-                playerList.add(new Player(name, score));
+                playerList.add(new Player(name, score, songPlayed));
             }
 
         } catch (IOException e) {
@@ -33,6 +35,19 @@ public class PlayerDataManager {
         }
 
         return playerList;
+    }
+
+    public List<Player> getListFromSong(String songPlayed) {
+        List<Player> playerList = loadPlayersFromFile("data/players.csv");
+        List<Player> songPlayerList = new ArrayList<>();
+
+        for (Player player : playerList) {
+            if (player.getSongPlayed().equals(songPlayed)) {
+                songPlayerList.add(player);
+            }
+        }
+
+        return songPlayerList;
     }
 
 }
