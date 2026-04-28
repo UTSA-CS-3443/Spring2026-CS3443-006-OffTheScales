@@ -1,29 +1,59 @@
 package edu.utsa.cs3443.offthescales.controller;
 
 import edu.utsa.cs3443.offthescales.MainApp;
+import edu.utsa.cs3443.offthescales.model.Player;
+import edu.utsa.cs3443.offthescales.model.PlayerDataManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+
+import java.net.URL;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class LeaderboardController {
 
     @FXML
-    private TreeTableView<?> HighScoreTable;
+    private TableView<Player> HighScoreTable;
 
     @FXML
-    private TreeTableColumn<?, ?> NameTableColumn;
+    private TableColumn<Player, String> NameTableColumn;
 
     @FXML
-    private TreeTableColumn<?, ?> ScoreTableColumn;
+    private TableColumn<Player, Integer> ScoreTableColumn;
 
     @FXML
     private Button TitleScreenButton;
+
+    private ObservableList<Player> playerList;
 
     @FXML
     void TitleScreenClicked(MouseEvent event) {
         MainApp.showTitleScreenView();
     }
 
+    @FXML
+    public void initialize() {
+        PlayerDataManager manager = new PlayerDataManager();
+
+        List<Player> players = manager.loadPlayersFromFile("data/players.csv");
+
+        setUpColumns();
+
+        playerList = FXCollections.observableList(players);
+        FXCollections.sort(playerList, Comparator.comparing(Player::getScore).reversed());
+        HighScoreTable.setItems(playerList);
+        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+    }
+
+    private void setUpColumns() {
+        NameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ScoreTableColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+    }
 }
