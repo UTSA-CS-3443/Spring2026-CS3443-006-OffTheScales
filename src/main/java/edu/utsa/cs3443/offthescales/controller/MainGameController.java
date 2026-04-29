@@ -174,6 +174,5 @@ public class MainGameController {
 
     @FXML
     void EndGameClicked(MouseEvent event) {
-        MainApp.showGameOverView(score);
     }
 }
