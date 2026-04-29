@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.offthescales.controller.LeaderboardController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0">
+         <children>
+            <Label text="Leaderboard">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="28.0" prefWidth="600.0" spacing="10.0">
+               <children>
+                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song1Clicked" text="Song 1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="SongButtons" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song2Clicked" text="Song 2" toggleGroup="$SongButtons" />
+                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song3Clicked" text="Song 3" toggleGroup="$SongButtons" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="HighScoreTable" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="NameTableColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="ScoreTableColumn" prefWidth="75.0" text="Score" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </TableView>
+            <Button fx:id="TitleScreenButton" mnemonicParsing="false" onMouseClicked="#TitleScreenClicked" text="Title Screen" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
