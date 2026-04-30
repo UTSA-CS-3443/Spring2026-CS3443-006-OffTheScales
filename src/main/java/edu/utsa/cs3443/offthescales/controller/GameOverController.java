@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 
 public class GameOverController {
 
+    private int finalScore;
+
     @FXML
     private TextField NameTextField;
 
@@ -21,6 +23,7 @@ public class GameOverController {
     private Label ScoreLabel;
 
     public void setScore(int score) {
+        this.finalScore = score;
         ScoreLabel.setText(String.valueOf(score));
     }
 
@@ -37,7 +40,7 @@ public class GameOverController {
             return;
         }
 
-        int score = Integer.parseInt(ScoreLabel.getText());
+        int score = finalScore;
 
         Player player = new Player(name, score, "song1");
 
