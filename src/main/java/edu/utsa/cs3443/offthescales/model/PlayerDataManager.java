@@ -1,8 +1,6 @@
 package edu.utsa.cs3443.offthescales.model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,20 +50,21 @@ public class PlayerDataManager {
     public void savePlayerToFile(Player player, String filePath) {
 
         try {
-            java.io.File file = new java.io.File(filePath);
+            File file = new File(filePath);
 
-            if (!file.exists()) {
-                file.getParentFile().mkdirs(); // create folder if needed
-                file.createNewFile();
+            boolean addNewLine = file.exists() && file.length() > 0;
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+
+            if (addNewLine) {
+                writer.newLine();
             }
 
-            java.io.FileWriter fw = new java.io.FileWriter(file, true);
-
-            fw.write(player.getName() + "," +
+            writer.write(player.getName() + "," +
                     player.getScore() + "," +
-                    player.getSongPlayed() + "\n");
+                    player.getSongPlayed());
 
-            fw.close();
+            writer.close();
 
         } catch (IOException e) {
             System.out.println("Error writing file: " + filePath);
