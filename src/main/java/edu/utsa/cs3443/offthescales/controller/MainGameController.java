@@ -10,13 +10,17 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.*;
 
 public class MainGameController {
 
-    @FXML private Pane gamePane;
-    @FXML private Button EndGameButton;
+    @FXML
+    private Pane gamePane;
+    @FXML
+    private Button EndGameButton;
 
     private final List<Circle> notes = new ArrayList<>();
 
@@ -32,12 +36,23 @@ public class MainGameController {
     private final double HIT_LINE_Y = 350;
     private final double SPEED = 2;
 
+    private MediaPlayer mediaPlayer;
+
     @FXML
     public void initialize() {
         createHitLine();
         createLaneLines();
         createKeyBoxes();
         createScoreUI();
+
+        String musicPath = getClass()
+                .getResource("/edu/utsa/cs3443/offthescales/songs/song1.mp3")
+                .toExternalForm();
+
+        Media media = new Media(musicPath);
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(0.5);
+        mediaPlayer.play();
 
         gamePane.setStyle(
                 "-fx-background-color: linear-gradient(to bottom, #5a0000, #444444);"
@@ -106,7 +121,7 @@ public class MainGameController {
 
             Circle note = new Circle(10);
             note.setCenterX(lanesX[lane]);
-            note.setCenterY(-i * 60);
+            note.setCenterY(-i * 100);
 
             note.setFill(createTealGradient());
             note.setStroke(Color.BLACK);
@@ -129,11 +144,20 @@ public class MainGameController {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                for (Circle note : notes) {
+
+                Iterator<Circle> it = notes.iterator();
+
+                while (it.hasNext()) {
+                    Circle note = it.next();
+
                     note.setCenterY(note.getCenterY() + SPEED);
 
                     if (note.getCenterY() > 400) {
                         combo = 0;
+
+                        gamePane.getChildren().remove(note);
+                        it.remove();
+
                         updateUI();
                     }
                 }
@@ -174,6 +198,11 @@ public class MainGameController {
 
     @FXML
     void EndGameClicked(MouseEvent event) {
+
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+
         MainApp.showGameOverView(score);
     }
 }
