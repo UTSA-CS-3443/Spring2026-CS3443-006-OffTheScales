@@ -39,6 +39,12 @@ public class MainGameController {
 
     private MediaPlayer mediaPlayer;
 
+    private String currentSong = "song1";
+
+    private boolean gameEnded = false;
+    private boolean waitingToEnd = false;
+    private double endStartTime = 0;
+
     @FXML
     public void initialize() {
         createHitLine();
@@ -119,20 +125,86 @@ public class MainGameController {
 
 
     private void spawnNotes() {
-        for (int i = 0; i < 20; i++) {
-            int lane = i % lanesX.length;
+
+        double[] noteTimes;
+        int[] lanes;
+
+        switch (currentSong) {
+            case "song2":
+                noteTimes = loadSong2Times();
+                lanes = loadSong2Lanes();
+                break;
+            case "song3":
+                noteTimes = loadSong3Times();
+                lanes = loadSong3Lanes();
+                break;
+            default:
+                noteTimes = loadSong1Times();
+                lanes = loadSong1Lanes();
+                break;
+        }
+
+        for (int i = 0; i < noteTimes.length; i++) {
 
             Circle note = new Circle(10);
-            note.setCenterX(lanesX[lane]);
-            note.setCenterY(-i * 100);
+            note.setCenterX(lanesX[lanes[i]]);
+            note.setCenterY(-100);
 
             note.setFill(createTealGradient());
             note.setStroke(Color.BLACK);
             note.setStrokeWidth(2);
 
+            note.setUserData(noteTimes[i]);
+
             notes.add(note);
             gamePane.getChildren().add(note);
         }
+    }
+
+    public void setSong(String song) {
+        this.currentSong = song;
+    }
+
+    // This is the note spawn for song1 (Twinkle)
+    private double[] loadSong1Times() {
+        return new double[] {
+                2080, 2850, 3760, 4600,
+                5580, 6490, 7360,
+                9320, 10220, 11160,
+                12050, 12980
+        };
+    }
+
+    private int[] loadSong1Lanes() {
+        return new int[] {
+                0,0,1,1,2,2,1,
+                0,0,1,1,2,2,1,
+                2,2,3,3,2,1
+        };
+    }
+    // This is the note spawn for song2 (No mp3 yet)
+    private double[] loadSong2Times() {
+        return new double[] {
+                0, 400, 800, 1200, 1600, 2000
+        };
+    }
+
+    private int[] loadSong2Lanes() {
+        return new int[] {
+                0,1,2,3,2,1
+        };
+    }
+    // This is the note spawn for song3 (No mp3 yet)
+    private double[] loadSong3Times() {
+        return new double[] {
+                0, 300, 600, 900, 1200
+        };
+    }
+
+    private int[] loadSong3Lanes() {
+        return new int[] {
+                3,2,1,0,1
+        };
     }
 
     private Paint createTealGradient() {
@@ -148,12 +220,28 @@ public class MainGameController {
             @Override
             public void handle(long now) {
 
+                double currentTime = mediaPlayer.getCurrentTime().toMillis();
+
                 Iterator<Circle> it = notes.iterator();
 
                 while (it.hasNext()) {
                     Circle note = it.next();
 
-                    note.setCenterY(note.getCenterY() + SPEED);
+                    double spawnTime = (double) note.getUserData();
+
+                    double travelTime = 4000;
+                    double timeUntilHit = spawnTime - currentTime;
+
+                    if (timeUntilHit < travelTime) {
+
+                        double progress = 1 - (timeUntilHit / travelTime);
+
+                        double startY = -100;
+                        double endY = HIT_LINE_Y;
+
+                        note.setCenterY(startY + progress * (endY - startY));
+                    }
+
 
                     if (note.getCenterY() > 400) {
                         combo = 0;
@@ -164,12 +252,28 @@ public class MainGameController {
                         updateUI();
                     }
                 }
+
+
+
+                if (!waitingToEnd && notes.isEmpty()) {
+                    waitingToEnd = true;
+                    endStartTime = currentTime;
+                }
+
+                if (waitingToEnd && !gameEnded) {
+                    if (currentTime - endStartTime >= 500) {
+                        gameEnded = true;
+                        stopGame();
+                    }
+                }
             }
         }.start();
     }
 
     private void handleKeyPress(KeyEvent event) {
         String key = event.getText().toLowerCase();
+
+        // System.out.println("Time: " + mediaPlayer.getCurrentTime().toMillis()); // Turn this on for when you want to sync notes for new songs, and off by default
 
         for (int lane = 0; lane < keys.length; lane++) {
             if (!keys[lane].equals(key)) continue;
@@ -185,7 +289,7 @@ public class MainGameController {
                     gamePane.getChildren().remove(note);
                     it.remove();
 
-                    score += 10;
+                    score += 100; // For changing how much each hit gives
                     combo++;
                     updateUI();
                     return;
@@ -205,6 +309,13 @@ public class MainGameController {
     }
 
     private void endGame() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+
+        MainApp.showGameOverView(score);
+    }
+    private void stopGame() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }

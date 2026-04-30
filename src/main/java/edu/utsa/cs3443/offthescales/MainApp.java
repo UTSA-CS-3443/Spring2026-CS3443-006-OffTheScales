@@ -1,6 +1,7 @@
 package edu.utsa.cs3443.offthescales;
 
 import edu.utsa.cs3443.offthescales.controller.GameOverController;
+import edu.utsa.cs3443.offthescales.controller.MainGameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -73,6 +74,10 @@ public class MainApp extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("MainGame.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+
+            MainGameController controller = fxmlLoader.getController();
+            controller.setSong("song1");
+
             stage.setTitle("Main Game");
             stage.setScene(scene);
             stage.show();
