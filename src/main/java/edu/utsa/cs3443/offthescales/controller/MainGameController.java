@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.IOException;
 import java.util.*;
 
 public class MainGameController {
@@ -63,6 +64,8 @@ public class MainGameController {
 
         gamePane.setFocusTraversable(true);
         gamePane.setOnKeyPressed(this::handleKeyPress);
+
+        mediaPlayer.setOnEndOfMedia(this::endGame);
     }
 
 
@@ -198,7 +201,10 @@ public class MainGameController {
 
     @FXML
     void EndGameClicked(MouseEvent event) {
+        endGame();
+    }
 
+    private void endGame() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
