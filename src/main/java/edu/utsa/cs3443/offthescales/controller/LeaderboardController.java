@@ -45,10 +45,7 @@ public class LeaderboardController {
         setUpColumns();
 
         playerList = FXCollections.observableList(players);
-        FXCollections.sort(playerList, Comparator.comparing(Player::getScore).reversed());
-        HighScoreTable.setItems(playerList);
-        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
+        setTable(playerList);
     }
 
     private void setUpColumns() {
@@ -59,20 +56,23 @@ public class LeaderboardController {
     @FXML
     void Song1Clicked(MouseEvent event) {
         playerList = FXCollections.observableList(manager.getListFromSong("song1"));
-        HighScoreTable.setItems(playerList);
-        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        setTable(playerList);
     }
 
     @FXML
     void Song2Clicked(MouseEvent event) {
         playerList = FXCollections.observableList(manager.getListFromSong("song2"));
-        HighScoreTable.setItems(playerList);
-        HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        setTable(playerList);
     }
 
     @FXML
     void Song3Clicked(MouseEvent event) {
         playerList = FXCollections.observableList(manager.getListFromSong("song3"));
+        setTable(playerList);
+    }
+
+    private void setTable(ObservableList<Player> playerList) {
+        FXCollections.sort(playerList, Comparator.comparing(Player::getScore).reversed());
         HighScoreTable.setItems(playerList);
         HighScoreTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
