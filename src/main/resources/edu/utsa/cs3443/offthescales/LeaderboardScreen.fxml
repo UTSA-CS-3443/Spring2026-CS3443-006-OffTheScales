@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.offthescales.controller.LeaderboardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utsa.cs3443.offthescales.controller.LeaderboardController">
    <children>
-      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0">
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom, #5a0000, #444444);">
          <children>
-            <Label text="Leaderboard">
+            <Label text="Leaderboard" textFill="WHITE">
                <font>
-                  <Font size="39.0" />
+                  <Font name="Impact" size="50.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="28.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song1Clicked" text="Song 1">
+                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song1Clicked" text="Song 1" textFill="WHITE">
                      <toggleGroup>
                         <ToggleGroup fx:id="SongButtons" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song2Clicked" text="Song 2" toggleGroup="$SongButtons" />
-                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song3Clicked" text="Song 3" toggleGroup="$SongButtons" />
+                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song2Clicked" text="Song 2" textFill="WHITE" toggleGroup="$SongButtons" />
+                  <RadioButton mnemonicParsing="false" onMouseClicked="#Song3Clicked" text="Song 3" textFill="WHITE" toggleGroup="$SongButtons" />
                </children>
                <VBox.margin>
                   <Insets />
@@ -47,7 +40,7 @@
                   <Insets left="100.0" right="100.0" />
                </VBox.margin>
             </TableView>
-            <Button fx:id="TitleScreenButton" mnemonicParsing="false" onMouseClicked="#TitleScreenClicked" text="Title Screen" />
+            <Button fx:id="TitleScreenButton" mnemonicParsing="false" onMouseClicked="#TitleScreenClicked" style="-fx-font-family: 'Impact'; -fx-font-size: 16px; -fx-background-color: black; -fx-text-fill: white; -fx-border-color: grey; -fx-border-width: 2;"  text="Title Screen" />
          </children>
       </VBox>
    </children>
