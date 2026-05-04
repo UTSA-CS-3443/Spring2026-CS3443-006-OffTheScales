@@ -15,7 +15,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        this.stage = stage;
+        MainApp.stage = stage;
         showTitleScreenView();
     }
 
@@ -62,7 +62,6 @@ public class MainApp extends Application {
 
             GameOverController controller = loader.getController();
             controller.setScore(score);
-
             stage.setScene(scene);
             stage.show();
 
@@ -70,13 +69,13 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    public static void showMainGameView() {
+    public static void showMainGameView(String song) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("MainGame.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
             MainGameController controller = fxmlLoader.getController();
-            controller.setSong("song1");
+            controller.setSong(song);
 
             stage.setTitle("Main Game");
             stage.setScene(scene);

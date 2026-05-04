@@ -26,17 +26,17 @@ public class SongSelectController {
 
     @FXML
     void Song1Clicked(MouseEvent event) {
-        MainApp.showMainGameView();
+        MainApp.showMainGameView("song1");
     }
 
     @FXML
     void Song2Clicked(MouseEvent event) {
-        MainApp.showMainGameView();
+        MainApp.showMainGameView("song2");
     }
 
     @FXML
     void Song3Clicked(MouseEvent event) {
-        MainApp.showMainGameView();
+        MainApp.showMainGameView("song3");
     }
 
 }

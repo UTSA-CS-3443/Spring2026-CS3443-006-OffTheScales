@@ -16,6 +16,11 @@ public class PlayerDataManager {
 
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
+
+                if (data.length < 3) {
+                    continue;
+                }
+
                 String name;
                 int score;
                 String songPlayed;
