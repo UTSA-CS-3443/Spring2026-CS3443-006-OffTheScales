@@ -315,7 +315,7 @@ public class MainGameController {
     private void handleKeyPress(KeyEvent event) {
         String key = event.getText().toLowerCase();
 
-         System.out.println(mediaPlayer.getCurrentTime().toMillis()); // Turn this on for when you want to sync notes for new songs, and off by default
+         // System.out.println(mediaPlayer.getCurrentTime().toMillis()); // Turn this on for when you want to sync notes for new songs, and off by default
 
         for (int lane = 0; lane < keys.length; lane++) {
             if (!keys[lane].equals(key)) continue;
