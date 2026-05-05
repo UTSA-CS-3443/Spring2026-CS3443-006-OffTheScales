@@ -173,7 +173,7 @@ public class MainGameController {
 
 
 
-    // This is the note spawn for song1 (Twinkle)
+    // This is the note spawn for song1
     private double[] loadSong1Times() {
         return new double[] {
                 2040.0,2840.0,3690.0,4680.0,5560.0,6470.0,7460.0,
@@ -196,7 +196,7 @@ public class MainGameController {
                 1,1,0,0,1,1,0
         };
     }
-    // This is the note spawn for song2 (No mp3 yet)
+    // This is the note spawn for song2
     private double[] loadSong2Times() {
         return new double[] {
                 5103, 5600, 6000, 6600, 7300, 8000,
@@ -222,7 +222,7 @@ public class MainGameController {
 
         };
     }
-    // This is the note spawn for song3 (No mp3 yet)
+    // This is the note spawn for song3
     private double[] loadSong3Times() {
         return new double[] {
              400,1150, 1430, 2210,2420, 3000, 3400,
@@ -305,7 +305,7 @@ public class MainGameController {
                 return 30000; // change when updated
 
             case "song3":
-                return 20000; // change lwhen updated
+                return 20000; // change when updated
 
             default:
                 return Double.MAX_VALUE;
