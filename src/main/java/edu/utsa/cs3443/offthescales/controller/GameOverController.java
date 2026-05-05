@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 public class GameOverController {
 
     private int finalScore;
+    private String songPlayed;
 
     @FXML
     private TextField NameTextField;
@@ -22,13 +23,17 @@ public class GameOverController {
     @FXML
     private Label ScoreLabel;
 
+    @FXML
+    private Button TitleScreenButton;
+
     public void setScore(int score) {
         this.finalScore = score;
         ScoreLabel.setText(String.valueOf(score));
     }
 
-    @FXML
-    private Button TitleScreenButton;
+    public void setSongPlayed(String songPlayed) {
+        this.songPlayed = songPlayed;
+    }
 
     @FXML
     void SaveHighScoreClicked(MouseEvent event) {
@@ -40,9 +45,7 @@ public class GameOverController {
             return;
         }
 
-        int score = finalScore;
-
-        Player player = new Player(name, score, "song1");
+        Player player = new Player(name, finalScore, songPlayed);
 
         PlayerDataManager manager = new PlayerDataManager();
         manager.savePlayerToFile(player, "data/players.csv");
@@ -54,7 +57,4 @@ public class GameOverController {
     void TitleScreenClicked(MouseEvent event) {
         MainApp.showTitleScreenView();
     }
-
-
-
 }
