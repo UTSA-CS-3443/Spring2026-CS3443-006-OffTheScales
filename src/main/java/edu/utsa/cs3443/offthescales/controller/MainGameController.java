@@ -52,24 +52,34 @@ public class MainGameController {
         createKeyBoxes();
         createScoreUI();
 
+        gamePane.setStyle(
+                "-fx-background-color: linear-gradient(to bottom, #5a0000, #444444);"
+        );
+
+        gamePane.setFocusTraversable(true);
+        gamePane.setOnKeyPressed(this::handleKeyPress);
+    }
+
+    public void setSong(String song) {
+        this.currentSong = song;
+        System.out.println("Selected song: " + currentSong);
+
+        startMusic();
+        spawnNotes();
+        startGameLoop();
+
+        gamePane.requestFocus();
+    }
+
+    private void startMusic() {
         String musicPath = getClass()
-                .getResource("/edu/utsa/cs3443/offthescales/songs/song1.mp3")
+                .getResource("/edu/utsa/cs3443/offthescales/songs/" + currentSong + ".mp3")
                 .toExternalForm();
 
         Media media = new Media(musicPath);
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(0.5);
         mediaPlayer.play();
-
-        gamePane.setStyle(
-                "-fx-background-color: linear-gradient(to bottom, #5a0000, #444444);"
-        );
-
-        spawnNotes();
-        startGameLoop();
-
-        gamePane.setFocusTraversable(true);
-        gamePane.setOnKeyPressed(this::handleKeyPress);
 
         mediaPlayer.setOnEndOfMedia(this::endGame);
     }
@@ -161,9 +171,7 @@ public class MainGameController {
         }
     }
 
-    public void setSong(String song) {
-        this.currentSong = song;
-    }
+
 
     // This is the note spawn for song1 (Twinkle)
     private double[] loadSong1Times() {
@@ -191,25 +199,45 @@ public class MainGameController {
     // This is the note spawn for song2 (No mp3 yet)
     private double[] loadSong2Times() {
         return new double[] {
-                0, 400, 800, 1200, 1600, 2000
+                5103, 5600, 6000, 6600, 7300, 8000,
+                9300, 10000, 10317, 11000, 11500,
+                12400, 13160, 13900, 14300, 14650,
+                15400, 16105, 16835, 17576, 18280,
+                18830, 19000, 19780, 20528, 21266,
+                22005, 22735, 23239, 23500, 24249,
+                24963, 25640, 26431
+
         };
     }
 
     private int[] loadSong2Lanes() {
         return new int[] {
-                0,1,2,3,2,1
+                0, 2, 2, 3, 1, 1,
+                2, 0, 0, 1, 3,
+                2, 2, 1, 3, 1,
+                0, 3, 2, 1, 0,
+                2, 3, 1, 0, 1,
+                3, 1, 3, 2, 0,
+                0, 2, 1
+
         };
     }
     // This is the note spawn for song3 (No mp3 yet)
     private double[] loadSong3Times() {
         return new double[] {
-                0, 300, 600, 900, 1200
+             400,1150, 1430, 2210,2420, 3000, 3400,
+             4000, 4225,4280, 5100, 5560, 6300, 8000,8300,9150, 9500,
+             10400, 11100, 11500, 12300,13000, 13500,14300,15000, 15460,
+             16300
         };
     }
 
     private int[] loadSong3Lanes() {
         return new int[] {
-                3,2,1,0,1
+                1,0, 3, 2,1, 3, 0,
+                2, 3,1, 2, 0, 3, 0,1,2, 3,
+                0, 3, 2, 1,0, 3,2,3, 1,
+                3
         };
     }
 
