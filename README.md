@@ -4,6 +4,7 @@ When running the project, make sure to use these VM options:
 
 ```bash
 --module-path "YOUR-JAVAFX-PATH-HERE" --add-modules javafx.controls,javafx.fxml,javafx.media
+```
 
 
 Title Screen - there are two options play and leaderboard 
