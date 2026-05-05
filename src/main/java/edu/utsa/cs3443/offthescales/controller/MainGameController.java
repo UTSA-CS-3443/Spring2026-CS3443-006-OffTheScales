@@ -168,18 +168,24 @@ public class MainGameController {
     // This is the note spawn for song1 (Twinkle)
     private double[] loadSong1Times() {
         return new double[] {
-                2080, 2850, 3760, 4600,
-                5580, 6490, 7360,
-                9320, 10220, 11160,
-                12050, 12980
+                2040.0,2840.0,3690.0,4680.0,5560.0,6470.0,7460.0,
+                9280.0,10160.0,11120.0,12030.0,12940.0,13830.0,14720.0,
+                16610.0,17520.0,18520.0,19450.0,20340.0,21260.0,22210.0,
+                24070.0,25060.0,25960.0,26850.0,27820.0,28690.0,29610.0,
+                31490.0,32380.0,33300.0,34210.0,35100.0,36010.0,37040.0,
+                38970.0,39860.0,40720.0,41590.0,42520.0,43410.0,44370.0
+
         };
     }
 
     private int[] loadSong1Lanes() {
         return new int[] {
-                0,0,1,1,2,2,1,
-                0,0,1,1,2,2,1,
-                2,2,3,3,2,1
+                0,0,2,2,3,3,2,
+                1,1,0,0,1,1,0,
+                3,3,2,2,1,1,0,
+                3,3,2,2,1,1,0,
+                0,0,2,2,3,3,2,
+                1,1,0,0,1,1,0
         };
     }
     // This is the note spawn for song2 (No mp3 yet)
@@ -222,6 +228,12 @@ public class MainGameController {
 
                 double currentTime = mediaPlayer.getCurrentTime().toMillis();
 
+                if (!gameEnded && currentTime >= getEndTime()) {
+                    gameEnded = true;
+                    endGame();
+                    return;
+                }
+
                 Iterator<Circle> it = notes.iterator();
 
                 while (it.hasNext()) {
@@ -252,28 +264,30 @@ public class MainGameController {
                         updateUI();
                     }
                 }
-
-
-
-                if (!waitingToEnd && notes.isEmpty()) {
-                    waitingToEnd = true;
-                    endStartTime = currentTime;
-                }
-
-                if (waitingToEnd && !gameEnded) {
-                    if (currentTime - endStartTime >= 500) {
-                        gameEnded = true;
-                        stopGame();
-                    }
-                }
             }
         }.start();
+    }
+
+    private double getEndTime() {
+        switch (currentSong) {
+            case "song1":
+                return 46000;
+
+            case "song2":
+                return 30000; // change when updated
+
+            case "song3":
+                return 20000; // change lwhen updated
+
+            default:
+                return Double.MAX_VALUE;
+        }
     }
 
     private void handleKeyPress(KeyEvent event) {
         String key = event.getText().toLowerCase();
 
-        // System.out.println("Time: " + mediaPlayer.getCurrentTime().toMillis()); // Turn this on for when you want to sync notes for new songs, and off by default
+         System.out.println(mediaPlayer.getCurrentTime().toMillis()); // Turn this on for when you want to sync notes for new songs, and off by default
 
         for (int lane = 0; lane < keys.length; lane++) {
             if (!keys[lane].equals(key)) continue;
