@@ -355,13 +355,13 @@ public class MainGameController {
             mediaPlayer.stop();
         }
 
-        MainApp.showGameOverView(score);
+        MainApp.showGameOverView(score, currentSong);
     }
     private void stopGame() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
 
-        MainApp.showGameOverView(score);
+        MainApp.showGameOverView(score, currentSong);
     }
 }

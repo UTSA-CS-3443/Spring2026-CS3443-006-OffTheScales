@@ -4,6 +4,7 @@ import edu.utsa.cs3443.offthescales.controller.GameOverController;
 import edu.utsa.cs3443.offthescales.controller.MainGameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -55,14 +56,16 @@ public class MainApp extends Application {
         }
     }
 
-    public static void showGameOverView(int score) {
+    public static void showGameOverView(int score, String songPlayed) {
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("GameOverScreen.fxml"));
-            Scene scene = new Scene(loader.load());
+            Parent root = loader.load();
 
             GameOverController controller = loader.getController();
             controller.setScore(score);
-            stage.setScene(scene);
+            controller.setSongPlayed(songPlayed);
+
+            stage.setScene(new Scene(root));
             stage.show();
 
         } catch (IOException e) {
