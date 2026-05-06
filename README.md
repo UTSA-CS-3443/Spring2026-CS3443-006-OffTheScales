@@ -1,7 +1,7 @@
 ## Contributors
-Isi Ataghauman
-Aiden Bryant
-Caleb Lambert
+Isi Ataghauman,
+Aiden Bryant,
+Caleb Lambert,
 Bryan Vela
 
 
