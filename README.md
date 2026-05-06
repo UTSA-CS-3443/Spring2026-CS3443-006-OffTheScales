@@ -1,3 +1,10 @@
+## Contributors
+Isi Ataghauman
+Aiden Bryant
+Caleb Lambert
+Bryan Vela
+
+
 ## How to Run
 
 When running the project, make sure to use these VM options:
